@@ -50,21 +50,26 @@ let childrenMap = {};
 let communeIndex = {};
 let inseeToInfo = {};
 
-fetch('data/correspondance.json')
-    .then(r => r.json())
-    .then(data => {
-        data.forEach(row => {
-            const postalCodes = row.postal_code.split('/').map(p => p.trim());
-            postalCodes.forEach(pc => {
-                const key = `${pc}|${normalize(row.nom_comm)}`;
-                communeIndex[key] = row.insee_com;
-            });
-            inseeToInfo[row.insee_com] = {
-                nom_comm: row.nom_comm,
-                postal_code: row.postal_code
-            };
+Promise.all([
+    fetch('data/correspondance1.json').then(r => r.json()),
+    fetch('data/correspondance2.json').then(r => r.json())
+])
+.then(([data1, data2]) => {
+    const combinedData = [...data1, ...data2]; // concaténation des deux tableaux
+
+    combinedData.forEach(row => {
+        const postalCodes = row.postal_code.split('/').map(p => p.trim());
+        postalCodes.forEach(pc => {
+            const key = `${pc}|${normalize(row.nom_comm)}`;
+            communeIndex[key] = row.insee_com;
         });
+        inseeToInfo[row.insee_com] = {
+            nom_comm: row.nom_comm,
+            postal_code: row.postal_code
+        };
     });
+})
+.catch(err => console.error("Erreur chargement JSON :", err));
 
 // ======================
 // LOAD SVG INLINE
