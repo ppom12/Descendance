@@ -1,0 +1,89 @@
+/* Mise en page générale */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Boutons en haut */
+.controls {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Carte France principale */
+.map-france {
+    width: calc(100% - 20px); /* presque toute la largeur avec petit padding */
+    height: auto;
+    display: block;
+    margin: 0 auto; /* centrage horizontal */
+    padding: 0 10px; /* petit espace de chaque côté */
+}
+
+/* Cartes d'outre-mer */
+.overseas-maps {
+    display: flex;
+    width: 20%;
+    gap: 5px; /* espace entre les cartes */
+    padding: 5px; /* petit padding autour */
+    box-sizing: border-box;
+}
+
+.map-overseas {
+    flex: 1; /* chaque carte prend la même place */
+    height: auto;
+    border-left: 1px solid #ccc; /* trait gris entre cartes */
+    box-sizing: border-box;
+}
+
+.map-overseas:first-child {
+    border-left: none;
+}
+
+#tablesContainer {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    width: 96vw;
+    margin: 20px auto;
+}
+
+#tablesContainer h2 {
+    text-align: center;
+    font-size: 16px;
+    margin: 6px 0;
+}
+
+#tablesContainer table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+#tablesContainer th,
+#tablesContainer td {
+    border: 1px solid #ccc;
+    padding: 4px;
+}
+
+.sosa-controls button {
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+.sosa-controls select {
+    padding: 4px 6px;
+    font-size: 14px;
+}
+
+.map-filters button.active {
+    background: #2c7be5;
+    color: white;
+}

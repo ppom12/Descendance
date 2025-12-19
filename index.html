@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analyse GEDCOM</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background: #f5f5f5;
+    border-bottom: 1px solid #ccc;
+}
+
+.maps {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.map-france {
+    width: 95vw;
+    margin-top: 10px;
+}
+
+.overseas-maps {
+    display: flex;
+    width: 95vw;
+    margin: 14px 0;
+    gap: 12px;
+}
+
+.map-overseas-wrapper {
+    position: relative;
+    width: 18%;
+}
+
+.map-overseas-wrapper:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: #ccc;
+}
+
+#tablesContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    width: 96vw;
+    margin: 20px auto;
+    overflow-x: auto;
+}
+
+.table-block {
+    flex: 1 1 0;
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+}
+
+.table-block h2 {
+    text-align: center;
+    font-size: 15px;
+    margin: 6px 0 8px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 4px 6px;
+}
+
+th {
+    background: #eee;
+}
+</style>
+</head>
+
+<body>
+
+<div class="controls">
+    <button id="loadGedcom">Charger le fichier GEDCOM</button>
+    <span id="fileStatus"></span>
+    <button id="toggleMapColor">Colorier la carte : OFF</button>
+</div>
+
+<input type="file" id="gedcomInput" accept=".ged" style="display:none">
+
+<div class="maps">
+    <div id="franceMap" class="map-france"></div>
+
+    <div class="overseas-maps">
+        <div class="map-overseas-wrapper"><div id="map-971"></div></div>
+        <div class="map-overseas-wrapper"><div id="map-972"></div></div>
+        <div class="map-overseas-wrapper"><div id="map-973"></div></div>
+        <div class="map-overseas-wrapper"><div id="map-974"></div></div>
+        <div class="map-overseas-wrapper"><div id="map-976"></div></div>
+    </div>
+</div>
+
+<!-- Bouton renommé + liste conservée -->
+<div class="sosa-controls" style="display:flex; gap:10px; margin:10px;">
+    <button id="sosaToggle">Descendants uniquement : OFF</button>
+    <select id="rootPerson"></select>
+</div>
+
+<div class="map-filters" style="display:flex; gap:8px; margin:10px;">
+    <button data-event="BIRT" data-label="Naissances"></button>
+    <button data-event="CHR" data-label="Baptêmes"></button>
+    <button data-event="MARR" data-label="Mariages"></button>
+    <button data-event="DEAT" data-label="Décès"></button>
+    <button data-event="BURI" data-label="Inhumations"></button>
+    <button data-event="RESI" data-label="Résidences"></button>
+</div>
+
+<div id="tablesContainer">
+    <div class="table-block"><h2>Naissances</h2><table id="birthTable"></table></div>
+    <div class="table-block"><h2>Baptêmes</h2><table id="baptismTable"></table></div>
+    <div class="table-block"><h2>Mariages</h2><table id="marriageTable"></table></div>
+    <div class="table-block"><h2>Décès</h2><table id="deathTable"></table></div>
+    <div class="table-block"><h2>Inhumations</h2><table id="burialTable"></table></div>
+    <div class="table-block"><h2>Résidences</h2><table id="residenceTable"></table></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
